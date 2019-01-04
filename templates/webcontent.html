@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+</head>
+<body>
+
+
+
+{% block body %}
+<br>
+<!--<br><br>-->
+{% if request.user.is_authenticated %}
+    <br><br><br>
+     <div class="container">
+        <div class="rows" style="text-align: right;">
+            <div class="col-md-12">
+     <a href="/mycontent/upload/" class="border border-success" style="
+    padding: 10px;
+    border-radius: 10px;
+">Upload Contents</a>
+     </div>
+     </div>
+     </div>
+     <br/>
+    <div class="container">
+        <div class="rows">
+            <div class="col-md-12">
+<center><a href="#" id="google_logo" style="padding-top:40px;"><img id="img_logo" src="{% static 'images/Green_logo.png'%}" alt="image" style="width:80%;"/></a></center>
+	</div>
+
+
+
+
+             <div class="col-md-12">
+			<div class="form">
+			  <form action="{% url 'result' %}" method="get" style="text-align: center" >
+            <center><input type="text" class='form-control' name="keyword" value="{{ key }}" size="40"  style="font-size:15pt;" required autofocus></center><br>
+             <input type="submit" name="youtube" value="Videos" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="images" value="Images" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="news" value="News" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+             <!--<input type="submit" name="marketing" value="Marketing" class="btn btn-primary btn-md">-->
+            </form>
+			</div>
+			</div>
+
+</div>
+        </div>
+
+
+{% else %}
+
+			<script>
+			    $('#Login_Modal').modal({backdrop: 'static', keyboard: false});
+			</script>
+
+
+{% endif %}
+{% endblock %}
+<br/><br/><br/>
+
+</body>
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
+</html>
+

@@ -1,0 +1,539 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>My Content</title>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+    <style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&subset=latin-ext");
+</style>
+
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+	<link rel='stylesheet prefetch' href="{% static 'css/dashboard.css' %}">
+
+</head>
+
+<body class="sidebar-is-reduced">
+  <header class="l-header">
+    <div class="l-header__inner clearfix">
+      <div class="c-header-icon js-hamburger">
+        <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
+      </div>
+      <!--<div class="c-header-icon has-dropdown"><span class="c-badge c-badge--header-icon animated shake">12</span><i class="fa fa-bell"></i>
+        <div class="c-dropdown c-dropdown--notifications">
+          <div class="c-dropdown__header"></div>
+          <div class="c-dropdown__content"></div>
+        </div>
+      </div>-->
+      <div class="c-search">
+        <input class="c-search__input u-input" placeholder="Search..." type="text"/>
+      </div>
+      <div class="header-icons-group">
+          <div class="c-header-icon logout"><a href="{% url 'upload' %}" class="btn btn-warning btn-sm"> Upload </a></div>
+         <div class="c-header-icon logout"><a href="{% url 'home' %}" class="btn btn-primary btn-sm"> Home </a></div>
+      </div>
+    </div>
+  </header>
+  <div class="l-sidebar">
+    <div class="logo">
+      <div class="logo__txt"></div>
+    </div>
+    <div class="l-sidebar__content">
+      <nav class="c-menu js-menu">
+        <ul class="u-list">
+          <li class="c-menu__item is-active" data-toggle="tooltip" title="Videos" onclick="getDataResults('videos')">
+            <div class="c-menu__item__inner"><!--<i class="fa fa-file-text-o"></i>-->
+              <div class="c-menu-item__title"><span>Videos</span></div>
+            </div>
+          </li>
+          <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Images" onclick="getDataResults('images')">
+            <div class="c-menu__item__inner"><!--<i class="fa fa-history"></i>-->
+              <div class="c-menu-item__title"><span>Images</span></div>
+            </div>
+          </li>
+
+    <!--<li class="c-menu__item has-submenu" data-toggle="tooltip" title="News" onclick="getDataResults('news')">-->
+    <!--<div class="c-menu__item__inner">-->
+    <!--  <div class="c-menu-item__title"><span>News</span></div>-->
+    <!--</div>-->
+    <!--</li>-->
+
+    <!--<li class="c-menu__item has-submenu" data-toggle="tooltip" title="Marketing" onclick="getDataResults('marketing')">-->
+    <!--  <div class="c-menu__item__inner">-->
+    <!-- <div class="c-menu-item__title"><span>Marketing</span></div>-->
+    <!--   </div>-->
+    <!-- </li>-->
+		  <!--<li class="c-menu__item has-submenu" data-toggle="tooltip" title="More" onclick="getDataResults('more')">-->
+    <!--  <div class="c-menu__item__inner">-->
+    <!--   <div class="c-menu-item__title"><span>More</span></div>-->
+    <!--  </div>-->
+    <!--   </li>-->
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</body>
+<main class="l-main">
+  <div class="content-wrapper content-wrapper--with-bg">
+
+
+	<section id="team" class="pb-5">
+    <div class="container-fluid">
+        <!--<h5 class="section-title h1">VIDEOS</h5>-->
+        <div class="row">
+            <!-- Team member -->
+
+            <!--<div class="product-options">-->
+            <!--    <a  id="myWish" href="javascript:;"  class="btn btn-mini" >Add to Wishlist </a>-->
+            <!--    <a  href="" class="btn btn-mini"> Purchase </a>-->
+            <!--</div>-->
+            <div class="alert alert-success" id="success-alert" style="display:none;">
+                <!--<button type="button" class="close" data-dismiss="alert">x</button>-->
+                <!--<strong></strong>-->
+                <span id="success_msg"></span>
+            </div>
+
+            <p id="notwishlistfound" style="text-align:center;font-weight:bold;font-size:18px;color:red;"></p>
+            <div id="appendDetails"></div>
+
+
+        </div>
+    </div>
+	</section>
+
+  </div>
+
+
+
+</main>
+<p id="demo"></p>
+
+
+	<script>
+
+
+
+		function PageLoaded()
+		{
+			var videos = "videos";
+			getDataResults(videos);
+		}
+
+		function getDataResults(res)
+		{
+
+			if(res=="videos")
+			{
+
+				var urls = 'http://www.greencontent.in/signagecms/mycontent_videos_api/';
+
+			}else if(res=="images")
+			{
+				var urls = 'http://www.greencontent.in/signagecms/mycontent_images_api/';
+
+			}
+
+// 			else if(res=="news")
+// 			{
+// 				var urls = 'http://www.greencontent.in/signagecms/my_news/';
+// 			}
+
+			var form_data = new FormData();
+				//form_data.append('accessToken',getAccessToken);
+
+				$.ajax(
+				  {
+					  type:'GET',
+					  url: urls,
+					  data:{
+
+					  },
+					  success: function(data)
+					  {
+						console.log("data result==="+JSON.stringify(data));
+						 //disableButton(id);
+
+						try {
+							//var jsonResponse = JSON.parse(data);
+
+							  if(data['status']==true)
+							  {
+								var responsedata = data['result'];
+
+
+								if(res=="videos")
+								{
+
+									ResultAppendtodomvideos(responsedata);
+									 //document.getElementById('notwishlistfound').innerHTML ="";
+									 $('#notwishlistfound').hide();
+									//ResultAppendtodomnews(responsedata);
+								}else if(res=="images")
+								{
+									ResultAppendtodomimages(responsedata);
+									//document.getElementById('notwishlistfound').innerHTML ="";
+									$('#notwishlistfound').hide();
+
+								}
+
+								// else if(res=="news")
+								// {
+								// 	ResultAppendtodomnews(responsedata);
+								// 	//document.getElementById('notwishlistfound').innerHTML ="";
+								// 	$('#notwishlistfound').hide();
+								// }
+
+								//console.log("data result==="+JSON.stringify(responsedata));
+
+							  }
+							  else if(data['status']==false)
+							  {
+							    var responsedata = data['result'];
+
+							    $("#appendDetails").empty();
+
+							    $('#notwishlistfound').show();
+
+							    document.getElementById('notwishlistfound').innerHTML = responsedata;
+
+								// console.log(responsedata);
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+
+		 }
+
+
+		 function ResultAppendtodomvideos(values)
+		 {
+			//Global_Name_Number=[];
+			//console.log("data result==="+JSON.stringify(values));
+
+			//$(".hamburger-toggle").toggleClass("is-opened");
+
+
+
+			//$(".js-hamburger").on("click", sidebarChangeWidth);
+
+			$("#appendDetails").empty();
+
+			for(var i=0;i<values.length;i++)
+			{
+				var record = values[i];
+
+				//var name_number = record.name + "-" + record.number;
+				//console.log(record[0]);
+
+
+			var newRows = "<div id='column_"+record[3]+"' class='col-md-4 col-lg-4 col-sm-6 col-xs-12'>";
+
+				newRows += "<div class='mainflip'>"
+
+				newRows += "<div class='frontside'>"
+
+				newRows += "<div class='card'>"
+
+				newRows += "<div class='card-body text-center'>"
+
+				newRows += "<div id='embed_link_"+record[3]+"' class='embed-responsive embed-responsive-16by9'>"+
+
+				 "<iframe src='"+record[0]+"'></iframe>"
+
+				+"</div>"
+
+
+				newRows += "<h4 class='card-title'>"+record[1]+"</h4>"
+
+				//newRows += "<p id='card_desc_"+record[3]+"' class='card-text'>"+record[1]+"</p>"
+
+				newRows += "<a id='video_upload_"+record[3]+"' onclick='videos_upload(\""+record[0]+"\",\""+record[1]+"\",\""+record[3]+"\");' class='btn btn-primary btn-sm' style='margin-right:10px;'>Upload</a>"+"<a class='btn btn-warning btn-sm' onclick='RemoveIndividual("+record[3]+",\""+'videos'+"\")'>Remove</a>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				$("#appendDetails").append(newRows);
+
+			}
+
+		}
+
+
+		 function ResultAppendtodomimages(values)
+		 {
+			//Global_Name_Number=[];
+			//console.log("data result==="+JSON.stringify(values));
+
+			//$(".hamburger-toggle").toggleClass("is-opened");
+
+			$("#appendDetails").empty();
+
+			for(var i=0;i<values.length;i++)
+			{
+				var record = values[i];
+
+				//var name_number = record.name + "-" + record.number;
+				//console.log(record[0]);
+
+
+			var newRows = "<div id='column_"+record[3]+"' class='col-md-4 col-lg-4 col-sm-6 col-xs-12'>";
+
+				newRows += "<div class='mainflip'>"
+
+				newRows += "<div class='frontside'>"
+
+				newRows += "<div class='card'>"
+
+				newRows += "<div class='card-body text-center'>"
+
+				newRows += "<p id='embed_link_"+record[3]+"' class='embed-responsive embed-responsive-16by9' style='padding-top:25px;'>"+
+
+				 "<img class='img-fluid' src='"+record[0]+"' alt='card image' style='width: 90%;height:auto;border-radius:5px;'>"
+
+				+"</p>"
+
+
+				newRows += "<h4 class='card-title'>"+record[1]+"</h4>"
+
+				//newRows += "<p id='card_desc_"+record[3]+"' class='card-text'>"+record[1]+"</p>"
+
+				newRows += "<a id='image_upload_"+record[3]+"' class='btn btn-primary btn-sm' onclick='images_upload(\""+record[0]+"\",\""+record[1]+"\",\""+record[3]+"\");' style='margin-right:10px;'>Upload</a>"+"<a onclick='RemoveIndividual("+record[3]+",\""+'images'+"\")' class='btn btn-warning btn-sm'>Remove</a>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				newRows += "</div>"
+
+				$("#appendDetails").append(newRows);
+
+			}
+
+		}
+
+
+
+		 function ResultAppendtodomnews(values)
+		 {
+			//Global_Name_Number=[];
+			//console.log("data result==="+JSON.stringify(values));
+
+			//$(".hamburger-toggle").toggleClass("is-opened");
+
+			$("#appendDetails").empty();
+
+			for(var i=0;i<values.length;i++)
+			{
+				var record = values[i];
+
+			    var newRows = "<div id='column_"+record[3]+"' class='col-lg-12 col-md-12 col-xs-12 col-sm-6' style='border:2px solid #ddd;border-radius:5px;padding:5px;margin-bottom:10px;'>";
+
+				//newRows += "<div id='list_"+record[3]+"' class='list-group'>"
+
+				newRows += "<a href='#'>"
+
+				newRows += "<div id='column2_"+record[3]+"' class='col-md-2' style='float:left;padding:10px;'>"+"<figure ><img class='media-object img-rounded img-responsive' src='"+record[0]+"' alt='img' style='width:100%;height:auto;' ></figure>"+"</div>"
+
+
+				newRows += "<div id='column10_"+record[3]+"' class='col-md-10' style='float:left;'><a href='#'><h4 class='list-group-item-heading pb-3'> Olympic </h4></a><p class='list-group-item-text'> Proposal to implement</p>"+
+				"<div class='col-md-12' style='padding:0px;'><input type='button' class='btn btn-success btn-sm' id='' value='Save' style='margin-right:10px;'></input><a href='#' class='btn btn-warning btn-sm' onclick='RemoveIndividual("+record[3]+",\""+'news'+"\")'>Remove</a></div>"
+                newRows +="</div>"
+
+			//	newRows += "<div id='column21_"+record[3]+"' class='col-md-2' style='margin-top:10px;'><a href='#' class='btn btn-primary btn-sm' style='margin-right:10px;'>Upload</a>"+"<a href='#' class='btn btn-warning btn-sm'>Remove</a></div>"
+
+				newRows += "</a>"
+
+				//newRows += "</div>"
+
+				newRows += "</div>"
+
+				$("#appendDetails").append(newRows);
+
+			}
+
+		}
+
+
+		function RemoveIndividual(id,res)
+		{
+		    //console.log("id=="+id+"=="+res);
+
+		    var text = confirm("Are you sure you want to delete this Item..?");
+
+		    if(text)
+		    {
+
+    		    if(res=="videos")
+    			{
+    				var urls = 'http://www.greencontent.in/signagecms/videos_remove/'+id;
+    			}else if(res=="images")
+    			{
+    				var urls = 'http://www.greencontent.in/signagecms/images_remove/'+id;
+
+    			}else if(res=="news")
+    			{
+    				var urls = 'http://www.greencontent.in/signagecms/news_remove/'+id;
+    			}
+
+
+		        var form_data = new FormData();
+				//form_data.append('accessToken',getAccessToken);
+				$.ajax(
+				{
+					  type:'GET',
+					  url: urls,
+					  data:{
+					  },
+					  success: function(data)
+					  {
+						console.log("data==="+data);
+						 //disableButton(id);
+
+						try
+						{
+							//var jsonResponse = JSON.parse(data);
+
+							  if(data['status']==true)
+							  {
+								var responsedata = data['result'];
+                                //console.log(responsedata);
+
+                                //column_
+                                //alert(responsedata);
+                                $('#column_'+id).remove();
+
+                                    $("#success-alert").hide();
+
+                                    $("#success-alert");
+                                    document.getElementById('success_msg').innerHTML = responsedata;
+                                    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+                                    $("#success-alert").slideUp(500);
+                                    });
+
+							  }
+							  else if(data['status']==false)
+							  {
+							    var responsedata = data['result'];
+
+								 console.log(responsedata);
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+
+		    }else
+		    {
+		       console.log("Item Not Deleted..!");
+		    }
+
+
+		}
+
+
+
+
+		function videos_upload(link , title , id)
+		{
+            ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+            //{% static 'downloads/images/' %}
+
+		 	$.ajax(
+		    {
+		        type:'GET',
+		        url: '/signagecms/video_upload/',
+		        data: {
+		        	link:link,
+		        	title:title,
+		        	id:id,
+		        },
+		        success: function( data )
+		        {
+		            ajaxindicatorstop();
+                    document.getElementById('video_upload_'+id).innerHTML = "Uploaded";
+		            alert("Uploaded Successfully")
+
+		        }
+		     });
+
+        }
+
+        function images_upload(link , keyword , id)
+         {
+
+                //console.log(link+"=="+keyword+"==="+id);
+                ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+              $.ajax(
+                {
+                    type:'GET',
+                    url: '/signagecms/images_upload/',
+                    data: {
+                      link:link,
+                      keyword:keyword,
+                      id:id,
+                    },
+                    success: function( data )
+                    {
+                       // console.log(data);
+                        ajaxindicatorstop();
+                       document.getElementById('image_upload_'+id).innerHTML = "Uploaded";
+                       alert("Uploaded Successfully");
+
+                    }
+                 });
+
+
+          }
+
+
+	</script>
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://use.fontawesome.com/2188c74ac9.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+<script src="{% static 'js/default_busy_loader.js' %}"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+
+
+<script>
+
+	$(document).ready(function () {
+			//your code here
+			//window.PageLoaded();
+			PageLoaded();
+		});
+
+</script>
+
+</html>

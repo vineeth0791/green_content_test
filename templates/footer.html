@@ -1,0 +1,32 @@
+<style>
+#footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:55px;
+   width:100%;
+   background:#999;
+}
+
+/* IE 6 */
+* html #footer {
+   position:absolute;
+   top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+}
+</style>
+<footer id="footer">
+    <div calss="container" style="background-color:#34363F;">
+        <div style="padding:5px;text-align:center;font-size:12px;">
+          <span style="color: aliceblue;"><a href="{% url 'about_us' %}" style="color: cornflowerblue;">About Us</a> / <a href="{% url 'privacy_services' %}" style="color: cornflowerblue;">Privacy Policy</a> / <a href="{% url 'terms_services' %}" style="color: cornflowerblue;">Terms and Conditions</a></span>
+                  <br/>  <span style="color: aliceblue;">Copyright (c) 2018 Green Content, All Rights Reserved. Powered by AdsKite India Pvt. Ltd.</span>
+
+                    </div>
+    </div>
+</footer>
+
+
+
+
+
+
+

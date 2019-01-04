@@ -1,0 +1,268 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+</head>
+<body>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  /*font-weight: 100;*/
+  /*font-size: 12px;*/
+  line-height: 30px;
+  color: #777;
+  background: #4CAF50;
+}
+
+.containers {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea,
+#contact button[type="submit"] {
+  font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
+}
+
+#contact {
+  background: #F9F9F9;
+  padding: 25px;
+  margin: 150px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#contact h3 {
+  display: block;
+  font-size: 28px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  text-align:center;
+}
+
+#contact h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  background: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#contact input[type="text"]:hover,
+#contact input[type="email"]:hover,
+#contact input[type="tel"]:hover,
+#contact input[type="url"]:hover,
+#contact textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+#contact textarea {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+#contact button[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #4CAF50;
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#contact button[type="submit"]:hover {
+  background: #43A047;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.copyright {
+  text-align: center;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  outline: 0;
+  border: 1px solid #aaa;
+}
+
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
+}
+</style>
+
+    <!--<div class="containers">-->
+
+ <!-- <form id="contact" method="post" enctype="multipart/form-data" action = "{% url 'campaign_upload' %}">-->
+ <!--     {% csrf_token %}-->
+ <!--   <h3>Campaign Upload Form</h3><hr/>-->
+ <!--   {% if res %}-->
+ <!--   <p style="color:red;text-align:center;">{{ res }}</p>-->
+ <!--   {% endif %}-->
+ <!--  <fieldset>-->
+    <!--<input id="myInput" type="file" name='media_file' webkitdirectory directory multiple required/>-->
+ <!--       <div style="position:relative;">-->
+	<!--	<a class='btn btn-primary' href='javascript:;'>-->
+	<!--		Browse Campaign Folder-->
+	<!--		<input id="myInput" type="file" name='media_file' style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="40"  onchange='$("#upload-file-info").html($(this).val());' webkitdirectory directory multiple required>-->
+	<!--	</a>-->
+	<!--	&nbsp;-->
+	<!--	<span class='label label-info' id="upload-file-info"></span>-->
+	<!--</div>-->
+ <!--   </fieldset>-->
+ <!--     <fieldset>-->
+ <!--     <button name="submit" type="submit" id="contact_submit" class="btn-upper btn btn-primary checkout-page-button" data-submit="...Sending"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload</button>-->
+ <!--   </fieldset>-->
+ <!-- </form>-->
+<!--</div>-->
+  <script>
+// var folder = document.getElementById("myInput");
+// folder.onchange=function(){
+//   var files = folder.files,
+//       len = files.length,
+//       i;
+//   for(i=0;i<len;i+=1){
+//     console.log(files[i]);
+//   }
+
+// }
+ </script>
+
+
+<style>
+    /****** IGNORE ******/
+/*body {*/
+/*  width: 400px;*/
+/*  margin: 100px auto;*/
+/*  background-color: #f5f5f5;*/
+/*}*/
+
+
+
+
+/****** CODE ******/
+
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 14px;}
+.file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+</style>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<div class="containers">
+    <form id="contact" method="post" enctype="multipart/form-data" action = "{% url 'campaign_upload' %}">
+        {% csrf_token %}
+            <h3>Campaign Upload Form</h3><hr/>
+                    {% if res %}
+                            <p style="color: darkgreen;text-align: center;font-size: 15px;font-weight: 500;">{{ res }}</p>
+                    {% endif %}
+            <fieldset>
+            <div class="file-upload">
+                     <div class="file-select">
+                        <div class="file-select-button" id="fileName">Browse Folder</div>
+                        <div class="file-select-name" id="noFile">No campaign chosen...</div>
+                        <input type="file" name="media_file" id="media_file" webkitdirectory directory multiple required>
+                     </div>
+            </div>
+            </fieldset>
+            <fieldset>
+                    <button name="submit" type="submit" id="contact_submit" class="btn-upper btn btn-primary checkout-page-button" data-submit="...Sending" ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload</button>
+            </fieldset>
+
+    </form>
+</div>
+
+
+<script>
+    $('#media_file').bind('change', function () {
+  var filename = $("#media_file").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+
+});
+
+
+</script>
+
+</body>
+</html>

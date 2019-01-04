@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> {% block title %} SignageCms - Login  {% endblock %}</title>
+</head>
+<body>
+{% block body %}
+    {% if messages %}
+  <ul class="messages">
+   {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+  </ul>
+
+        {% endif %}<br> <br> <br> <br>
+    <div class="container">
+
+        <h2><b> Login Form </b></h2><br>
+
+        <form method="post"  action="">
+            {% csrf_token %}
+            {{ loginform.as_p}}<br>
+            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+
+             <input type="submit" value="Submit" style="background-color: lawngreen">
+        </form>
+    </div><br><br><br>
+{% endblock %}
+</body>
+</html>

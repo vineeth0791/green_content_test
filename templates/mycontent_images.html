@@ -1,0 +1,696 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ {% block header %}
+{% include 'header.html' %}
+{% endblock %}
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+<body>
+{% block body %}
+<br><br><br><br>
+<style>
+    /*.body-content .sign-in-page form .form-group span {*/
+    /*    color: black;*/
+    /*padding: 12px;*/
+    /*}*/
+    .btn-default{
+        color: black;
+    padding: 12px;
+    }
+    .multiselect-container>li>a>label{
+        padding:2px 10px;
+    }
+</style>
+      <div class="container">
+      <div class="rows" style="text-align: right;">
+      <div class="col-md-12">
+        <a href="{% url 'upload' %}" class="border border-success" style="padding: 10px;border-radius: 10px;">Upload Content</a>
+         <a href="{% url 'mycontent_videos' %}" class="border border-success" style="padding: 10px;border-radius: 10px;">My Videos</a>
+     </div>
+     </div>
+     </div>
+     <br/><br/>
+    <div class="container">
+        <div class="rows">
+             <div class="col-md-12">
+			<div class="form">
+			  <form action="{% url 'mycontent_search' %}" method="get" style="text-align: center" >
+            <center><input type="text" class='form-control' name="keyword" value="{{ key }}" size="40"  style="font-size:15pt;" required autofocus></center><br>
+             <input type="submit" name="videos" value="Videos" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="images" value="Images" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="news" value="News" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+             <!--<input type="submit" name="marketing" value="Marketing" class="btn btn-primary btn-md">-->
+            </form>
+			</div>
+			</div>
+
+</div>
+        </div>
+         <br/><br/>
+
+
+{% if private_result %}
+<!--<form  method="get">-->
+
+<section id="team" class="pb-5">
+    <div class="container">
+        <div class="row">{% for i in private_result %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="50%" height="50%" data="{{i.upload.url}}" ></object>
+									</div>
+
+
+                                    <p class="card-title">{{i.upload.name}}</p>
+
+                                    <p> Uploaded by: {{ i.user.first_name }} </p>
+
+                                      <p> Created date: {{ i.created_date }} </p>
+
+
+                                     <a  class="btn btn-outline-primary"  onclick="edit_video('{{i.id}}');">Edit</a>
+
+                                      <a  class="btn btn-outline-danger"  onclick="delete_image('{{i.id}}');">Delete</a>
+
+                                    <a href="{{i.upload.url}}"  class="btn btn-outline-success" download> Download </a>
+
+
+		                            <!--<a href="{% url 'downloads_upload_files' i.id %}" class="btn btn-success btn-sm">download</a>-->
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+            </div>{% endfor %}
+
+{% elif res_private %}
+<!--<form  method="get">-->
+
+<section id="team" class="pb-5">
+    <div class="container">
+        <div class="row">
+            {% for i in res_private %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="50%" height="50%" data="{{i.upload.url}}" ></object>
+									</div>
+
+
+                                    <p class="card-title">{{i.upload.name}}</p>
+
+                                    <p> Uploaded by: {{ i.user.first_name }} </p>
+
+                                   <p> Created date: {{ i.created_date }} </p>
+
+
+                                     <a  class="btn btn-outline-primary"  onclick="edit_video('{{i.id}}');">Edit</a>
+
+                                      <a  class="btn btn-outline-danger"  onclick="delete_image('{{i.id}}');">Delete</a>
+
+                                    <a href="{{i.upload.url}}"  class="btn btn-outline-success" download> Download </a>
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+            </div>{% endfor %}
+    <div class="row">{% for i in res_private %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4">
+
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="50%" height="50%" data="{{i.upload.url}}" ></object>
+									</div>
+
+
+                                    <p class="card-title">{{i.upload.name}}</p>
+
+                                    <p> Uploaded by: {{ i.user.first_name }} </p>
+
+                                      <p> Created date: {{ i.created_date }} </p>
+
+                                     <a  class="btn btn-outline-primary"  onclick="edit_video('{{i.id}}');">Edit</a>
+
+                                      <a  class="btn btn-outline-danger"  onclick="delete_image('{{i.id}}');">Delete</a>
+
+                                    <a href="{{i.upload.url}}"  class="btn btn-outline-success" download> Download </a>
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+            </div>{% endfor %}
+
+
+
+{% endif %}
+
+
+        </div>
+    </div>
+</section>
+
+    <!--</form>-->
+
+      <!-- The start Modal -->
+  <div class="modal" id="popupModal">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Details</h4>
+          <button type="button" class="close" data-dismiss="modal" onclick="$('#popupModal').hide();window.location.reload();">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+     <!--    <form id="upload-file" method="post" enctype="multipart/form-data">-->
+	    <!--{% csrf_token %}-->
+        <div class="form-group"  style="display:none;">
+		<label class="info-title">Select GC Group</label>
+        <input type="text" class="form-control unicase-form-control text-input" id="group_id">
+        </div>
+          <div class="form-group" style="display:none;">
+              <label class="info-title">Selected GC Group id</label>
+		    <input type="text" class="form-control unicase-form-control text-input" name="email_gc_name" id="email_gc_name" >
+		</div>
+
+        <div class="form-group" style="display:none;">
+		<label class="info-title">id</label>
+        <input type="text" class="form-control unicase-form-control text-input" name="id" id="id">
+        </div>
+        <div class="form-group" >
+		<label class="info-title">File name</label>
+        <input type="text" class="form-control unicase-form-control text-input" id="upload_name" disabled>
+        </div>
+        <div class="form-group" >
+		<label class="info-title">Content Description </label>
+        <input type="text" class="form-control unicase-form-control text-input" name="desc" id="desc">
+        </div>
+        <div class="form-group" >
+		<label class="info-title">Search Keywords (Comma Separated) </label>
+        <input type="text" class="form-control unicase-form-control text-input" name="keys" id="keywords" placeholder="Enter Keywords (Comma Separated) ">
+        Existing keywords : <label id="key"></label>
+        </div>
+  <!--      <div class="form-group" >-->
+		<!--<label class="info-title">Select Content Type</label>-->
+  <!--      <input type="text" class="form-control unicase-form-control text-input" id="file_access_mode">-->
+  <!--      </div>-->
+          <div class="form-group">
+		    <label class="info-title" for="exampleInputEmail1">Select Content Type : </label>
+		     <input type="radio" name="Private"  value="private" class="private" id="private" onclick="showes();" ><span class="buying-selling-word" style="padding-right:20px;">Private</span>
+            <input type="radio" name="Private" value="public" class="public" id="public" onclick="hides();"><span class="buying-selling-word">Public</span><br/>
+
+		</div>
+		   <div class="form-group" id="emaildiv">
+		    <label class="info-title" for="exampleInputEmail1">Select GC Group : </label>
+            <select class="multiselect" multiple="multiple" name="groups" id="groups"></select>
+		</div>
+			   <div class="form-group" id="emailblock">
+            <select class="multiselect1" multiple="multiple" name="groupss" id="groupss"></select>
+		</div>
+		<br/>
+		<br/>
+        	<div style="text-align:center;">
+        <button type="button" class="btn btn-danger center-block" onclick="$('#popupModal').hide();window.location.reload();" >Cancel</button>
+		<button type="button" class="btn btn-success center-block" onclick="upload_edit(document.getElementById('id').value)">Submit</button>
+		<!--<button type="submit" class="btn-upper btn btn-primary checkout-page-button" id="upload-file-btn"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload</button>-->
+		</div>
+		<!--</form>-->
+
+        </div>
+
+        <!-- Modal footer -->
+        <!--<div class="modal-footer">-->
+
+        <!--</div>-->
+
+      </div>
+    </div>
+  </div>
+
+    <script>
+    	var val = [];
+    var group_id_result;
+
+        function edit_video(id){
+       console.log(id);
+    				var urls = 'https://www.greencontent.in/edit_upload/'+id;
+
+             ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+				$.ajax(
+				{
+					  type:'GET',
+					  url: urls,
+					  data:{
+					  },
+					  success: function(data)
+					  {
+					//	console.log("data==="+JSON.stringify(data));
+						 //disableButton(id);
+					try {
+                            // var jsonResponse = JSON.parse(data);
+							  if(data['status']==true)
+							  {
+                                        var result = data['result'];
+                                        console.log(JSON.stringify(result));
+                                        display_edit_data(result);
+                                     ajaxindicatorstop();
+							  }
+							  else if(data['status']==false)
+							  {
+
+                                    swal("Error, Please contact us.");
+                                     ajaxindicatorstop();
+
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+    }
+
+function hide(){
+    document.getElementById("emaildiv").style.display="none";
+     document.getElementById("emailblock").style.display="none";
+}
+function hides(){
+    document.getElementById("emaildiv").style.display="none";
+     document.getElementById("emailblock").style.display="none";
+}
+function show(){
+    document.getElementById("emaildiv").style.display="block";
+     compare_array();
+        // document.getElementById("groups").style.display="block";
+               document.getElementById("groupss").style.display="none";
+//             for( var j=0;j<group_id_result.length;j++){
+//                 var record_val = group_id_result[j];
+//                  $('.multiselect').append("<option value='"+record_val.group_id+"'>" + record_val.group_name + "</option>");
+//             }
+
+//   $('.multiselect')
+//     .multiselect({
+//       allSelectedText: 'All',
+//       maxHeight: 100,
+//       includeSelectAllOption: true
+//     })
+//     .multiselect('selectAll', false)
+//     .multiselect('updateButtonText');
+
+
+}
+function showes(){
+    document.getElementById("emaildiv").style.display="none";
+      document.getElementById("emailblock").style.display="block";
+      $('.multiselect1').empty();
+            for( var j=0;j<group_id_result.length;j++){
+                var record_val = group_id_result[j];
+                 $('.multiselect1').append("<option value='"+record_val.group_id+"'>" + record_val.group_name + "</option>");
+            }
+
+  $('.multiselect1')
+    .multiselect({
+      allSelectedText: 'All',
+      maxHeight: 100,
+      includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+
+
+}
+
+
+
+// $(function() {
+//     $('#upload-file-btn').click(function() {
+       function upload_edit(id){
+        $(':checkbox:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+        var str =JSON.stringify(val);
+        console.log(str);
+        var arr = str.replace (/"/g,'');
+         console.log(arr);
+        arr1 = arr.replace('multiselect-all,','');
+        console.log(arr1);
+        arr2 = arr1.replace('multiselect-all,','');
+        console.log(arr2);
+         var array = JSON.parse(arr2);
+        console.log(array);
+ var result = [];
+    $.each(array, function(i, e) {
+        if ($.inArray(e, result) == -1) result.push(e);
+    });
+
+console.log(result);
+
+
+            var description = document.getElementById('desc').value;
+            var keyword = document.getElementById('keywords').value;
+
+
+
+
+
+        if(document.getElementById('private').checked){
+            var select_type = "private";
+            if(arr1=="" || arr1=="null" || arr1==" " || arr1=="undefined" || arr1=="[]"){
+                          swal({
+            title: 'Please select GC group.!',
+            timer: 2000
+          });
+            return false;
+
+            }
+            document.getElementById("email_gc_name").value="["+result+"]";
+        }else if (document.getElementById('public').checked) {
+                     var select_type = "public";
+                    document.getElementById("email_gc_name").value="[]";
+                }
+                var email_gc = document.getElementById("email_gc_name").value;
+                 console.log(id+" "+description+" "+keyword+" "+email_gc+" "+select_type);
+
+                  ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+
+
+
+
+// 		var form_data = new FormData();
+// 			    form_data.append($('#upload-file')[0]);
+
+        $.ajax({
+            type: 'GET',
+            url: '/edit_upload_post/'+id,
+            // data: form_data,
+               data: {
+            id:id,
+            desc:description,
+            keys:keyword,
+            select_type:select_type,
+            email_gc_name:email_gc,
+            },
+            success: function(data) {
+                //alert("success");
+
+                //console.log('Success!');
+						console.log("data==="+JSON.stringify(data));
+                        	try {
+
+							  if(data['status']==true)
+							  {
+							     // swal("Updated Successfully.");
+							     //swal("Good job!", "You clicked the button!", "success");
+                            setTimeout(function () {
+                          swal({
+                            title: "success!",
+                            text: "Updated Successfully.",
+                            type: "success",
+                            confirmButtonText: "OK"
+                          },
+                          function(isConfirm){
+                            if (isConfirm) {
+                             window.location.reload();
+                            }
+                          }); }, 1000);
+                                     ajaxindicatorstop();
+							  }
+							  else if(data['status']==false)
+							  {
+
+                                    swal("Error, Please contact us.");
+                                     ajaxindicatorstop();
+
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+}
+});
+
+
+
+// });
+// });
+}
+
+function display_edit_data(data){
+document.getElementById("group_id").value=data.group_id;
+document.getElementById("upload_name").value=data.upload_name;
+document.getElementById("key").innerHTML=data.keywords;
+document.getElementById("id").value=data.id;
+document.getElementById("desc").value=data.desc;
+
+// document.getElementById("file_access_mode").value=data.file_access_mode;
+if(data.file_access_mode=="private"){
+    document.getElementById('private').checked = true;
+    show();
+}else{
+     document.getElementById('public').checked = true;
+     hide();
+}
+
+    $('#popupModal').show();
+
+}
+
+    function delete_image(id)
+		{
+            console.log(id);
+    				var urls = 'https://www.greencontent.in/remove_upload_files/'+id;
+            swal({
+              title: "Are you sure?",
+              text: "You want to delete this Image..!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Yes, delete ",
+              cancelButtonText: "No, cancel ",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },function(isConfirm) {
+              if (isConfirm) {
+		    var form_data = new FormData();
+             ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+				$.ajax(
+				{
+					  type:'GET',
+					  url: urls,
+					  data:{
+					  },
+					  success: function(data)
+					  {
+					//	console.log("data==="+JSON.stringify(data));
+						 //disableButton(id);
+					try {
+
+							  if(data['status']==true)
+							  {
+                                        swal({
+                                        title: "Image!",
+                                                  text: "Deleted Successfully!",
+                                                  type: "success"
+                                        },
+                                        function(){
+                                          window.location.reload();
+                                      });
+                                     ajaxindicatorstop();
+							  }
+							  else if(data['status']==false)
+							  {
+
+                                    swal("Error, Please contact us.");
+                                     ajaxindicatorstop();
+
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+
+    } else {
+    swal("Cancelled", "Image is safe", "error");
+      }
+    });
+
+
+		}
+
+
+function compare_array(result){
+    var key_value = document.getElementById("group_id").value;
+    console.log("success"+key_value);
+     //console.log(typeof(key_value));
+      var array = JSON.parse( key_value);
+       $('.multiselect').empty();
+      for(var i=0;i<array.length;i++){
+            var record = array[i];
+            //console.log("record"+record);
+            for( var j=0;j<group_id_result.length;j++){
+                var record_val = group_id_result[j];
+                //console.log("record_val"+record_val.group_id);
+                if(record==record_val.group_id){
+                  //console.log("record_val"+record_val.group_id);
+                //   group_result = [];
+                //   group_result.push(record_val.group_name);
+                 $('.multiselect').append("<option value='"+record_val.group_id+"'>" + record_val.group_name + "</option>");
+
+                }
+            }
+        }
+        //console.log(group_result);
+        // console.log(typeof(record));
+        // console.log(typeof(group_id_result));
+        //  console.log("record"+group_id_result);
+  $('.multiselect')
+    .multiselect({
+      allSelectedText: 'All',
+      maxHeight: 100,
+      includeSelectAllOption: true
+    })
+    .multiselect('selectAll', false)
+    .multiselect('updateButtonText');
+
+}
+
+	window.onload = function getDataResults()
+		{
+
+
+			var form_data = new FormData();
+				//form_data.append('accessToken',getAccessToken);
+
+				$.ajax(
+				  {
+					  type:'GET',
+					  url: "https://www.greencontent.in/My_GC_Groups_Api/",
+					  data:{
+
+					  },
+					  success: function(data)
+					  {
+					//	console.log("data result==="+JSON.stringify(data));
+						 //disableButton(id);
+
+						try {
+							//var jsonResponse = JSON.parse(data);
+
+							  if(data['status']==true)
+							  {
+								var responsedata = data['result'];
+
+								console.log("data result==="+JSON.stringify(responsedata));
+
+								group_id_result = responsedata;
+
+						        //selectdropdown(responsedata);
+
+							  }
+							  else if(data['status']==false)
+							  {
+							    var responsedata = data['result'];
+
+								 console.log(responsedata);
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+
+		 }
+    </script>
+
+{% endblock %}
+<br/><br/><br/>
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
+</body>
+</html>

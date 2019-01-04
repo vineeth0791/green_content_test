@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ {% block header %}
+{% include 'header.html' %}
+{% endblock %}
+</head>
+<body>
+{% block body %}
+<div class="body-content outer-top-bd">
+	<div class="container">
+		<div class="x-page inner-bottom-sm">
+			<div class="row">
+				<div class="col-md-12 x-text text-center">
+					<h1>404</h1>
+					<h3> Sorry ,we can not download this file due to of privacy issues </h3><br>
+				<h3 style ="text-align:middle"> you can download this file with , <a href="https://en.savefrom.net/" ><span style ="color:green">https://en.savefrom.net/</span></a> </h3>
+
+                {% if link %}
+                <h3> This file link :: {{ link }} </h3>
+                {% endif %}
+				</div>
+			</div><!-- /.row -->
+		</div><!-- /.sigin-in-->
+	</div><!-- /.container -->
+</div>
+
+
+
+{% endblock %}
+<br/><br/><br/>
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
+
+
+
+</body>
+
+</html>

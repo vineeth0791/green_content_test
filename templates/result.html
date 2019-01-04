@@ -1,0 +1,871 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> {% block title %} result  {% endblock %}</title>
+
+</head>
+<body>
+{% block body %}
+<br/><br/><br/>
+
+{% if request.user.is_authenticated %}
+
+    <div align="middle">
+    <br><br><br>
+    <form action="{% url 'result' %}" method="get" style="text-align: center" >
+              <center><input type="text" class='form-control' name="keyword" value="{{ key }}" size="40"  style="font-size:15pt;width: 80%;" required autofocus></center><br>
+             <input type="submit" name="youtube" value="Videos" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="images" value="images" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="news" value="News" class="btn btn-primary btn-md">&nbsp;&nbsp;&nbsp;&nbsp;
+            </form>
+             </div>
+<br/><br/>
+
+      <!-- The Modal -->
+  <div class="modal" id="popupModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Terms & Conditions</h4>
+          <button type="button" class="close" data-dismiss="modal" onclick="$('#popupModal').hide();">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+			<p>The Site/Client or the apps in the Site/Client, may contain links to third party websites or
+			clients("Linked Sites/Client").The Linked Sites/Client are not under our control and we are not
+			responsible for any Linked Site, including any content contained in a Linked Site or any changes
+			or updates to a Linked Site. We provide links to you only as a convenience, and the inclusion of
+			any link does not imply our endorsement of the site or any association with its operators. The user
+			carries full responsibility for checking the legitimacy of his use of Adskite. Adskite only provides
+			the technical service. Hence, Adskite does not take liability towards the user or any third party
+			for the permissibility of downloading content through Adskite.</p>
+
+			<input type="hidden" name="link_link" id="link_link" />
+			<input type="hidden" name="keyword_keyword" id="keyword_keyword" />
+			<input type="hidden" name="id_id" id="id_id" />
+
+			<b><div class="checkbox"  >
+				<label><input type="checkbox" id="AcceptCheckBox"> Accept Terms & Conditions</label>
+			</div></b>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+			<button type="button" class="btn btn-danger" onclick="$('#popupModal').hide();" >Cancel</button>
+			<a id="download_files_" onclick="TermsAccept();" download><button type="button" class="btn btn-success"  >Submit</button>
+		    </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+{% if videos_new %}
+<form  method="get">
+
+<section id="team" class="pb-5">
+    <div class="container">
+        <div class="row">{% for i in videos_old %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4" style="margin-bottom:10px;">
+
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="100%" height="200px" data="{{i.0}}" ></object>
+									</div>
+
+
+                                    <h4 class="card-title">{{i.1}}</h4>
+
+                                    <input type="button" class="btn btn-outline-info" value="Saved" disabled><span align="right" class="glyphicon glyphicon-downalod"></span></input>
+
+									<input type="text" id="text-val_{{i.3}}" value="{{i.0}}" style="display:none;"/>
+		                            <!--<input type="button" class="btn btn-success btn-sm glyphicon glyphicon-downalod" id="dwn-btn_{{i.3}}" value="upload" onclick="videos_upload('{{i.0}}','{{i.2}}','{{i.3}}')"/>-->
+		                            <a href="{% url 'downloads_videos' i.4 %}" class="btn btn-outline-success">download</a>
+
+									<input type="button" class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.3}}" onclick="Copy('{{i.3}}');" title="click to copy" />
+                                    <input type="text" id="url_{{i.3}}"  value="{{i.0}}" style="opacity:0;" />
+                                    <!--<span><i class="fa fa-download" aria-hidden="true"></i></span>-->
+
+                                    <!--<input type="button" class="glyphicon glyphicon-downalod" class="btn btn-success btn-sm"id="dwn-btn_{{i.2}}" value="dw" onclick="download('{{i.0}}','{{i.1}}','{{i.2}}')"/>-->
+
+									<!--<a href="#" class="btn btn-success btn-sm">Edit</a>-->
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+            </div>{% endfor %}
+        {% for i in videos_new %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4" style="margin-bottom:10px;">
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="100%" height="100%" data="{{i.0}}" ></object>
+									</div>
+
+
+                                    <h4 class="card-title">{{i.1}}</h4>
+
+                                    <input type="button" class="btn btn-outline-info" id="saveButton_{{i.3}}"  onclick="getvideoLinks('{{ i.0 }}','{{i.1}}','{{i.2}}' ,'{{i.3}}','{{i.4}}');" value="Save"><span align="right" class="glyphicon glyphicon-downalod"></span></input>
+
+		                            <!--<input type="button" class="btn btn-success btn-sm glyphicon glyphicon-downalod" id="dwn-btn_{{i.3}}" value="upload" onclick="videos_upload('{{i.0}}','{{i.2}}','{{i.3}}')"/>-->
+		                            <a href="{% url 'downloads_videos' i.4 %}" class="btn btn-outline-success">download</a>
+
+
+									<input type="button"  class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.3}}" onclick="Copy('{{i.3}}');" title="click to copy" />
+                                    <input type="text" id="url_{{i.3}}"  value="{{i.0}}" style="opacity:0;" />
+
+                                    <!--<span><i class="btn btn-info btn-sm fa fa-download" aria-hidden="true" title="download" id="dwn-btn_{{i.3}}" onclick="videos_download('{{i.0}}','{{i.1}}','{{i.3}}')"></i></span>-->
+
+                                    <!--<input type="button" class="glyphicon glyphicon-downalod" class="btn btn-success btn-sm"id="dwn-btn_{{i.2}}" value="dw" onclick="download('{{i.0}}','{{i.1}}','{{i.2}}')"/>-->
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+               <!-- </div>-->
+            </div>{% endfor %}
+
+
+        </div>
+    </div>
+</section>
+
+    </form>
+<div class="d-block m-x-auto" style="transform: translate(40%,30%);">
+{% if videos_new.has_other_pages %}
+ <ul class="pagination">
+    {% if videos_new.has_previous %}
+      <li><a href="{{ key }}?page={{ videos_new.previous_page_number }}">&laquo;</a></li> &nbsp;
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>&nbsp;
+    {% endif %}
+    {% for i in videos_new.paginator.page_range %}
+      {% if videos_new.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>&nbsp;
+      {% else %}
+        <li><a href="{{ key }}?page={{ i }}">{{ i }}</a></li>&nbsp;
+      {% endif %}
+    {% endfor %}
+    {% if videos_new.has_next %}
+      <li><a href="{{ key }}?page={{ videos_new.next_page_number }}">&raquo;</a></li>&nbsp;
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>&nbsp;
+    {% endif %}
+  </ul>
+{% endif %}
+</div>
+
+{% endif %}
+
+{% if images_new %}
+<form  method="get">
+
+<section id="team" class="pb-5">
+    <div class="container">
+        <div class="row">{% for i in images_old %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4" style="margin-bottom:10px;">
+
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="100%" height="200px" data="{{i.0}}"></object>
+									</div>
+
+
+                                    <h4 class="card-title">{{i.1}}</h4>
+
+
+                                    <input type="button" class="btn btn-outline-info" value="Saved" disabled><span align="right" class="glyphicon glyphicon-downalod"></span></input>
+                                    <!--<input type="button" class="glyphicon glyphicon-downalod" class="btn btn-success btn-sm"id="dwn-btn_{{i.2}}" value="upload" onclick="images_upload('{{i.0}}','{{i.1}}','{{i.2}}')"/>-->
+                                    <a href="{% url 'downloads_images' i.2 %}" class="btn btn-outline-success">download</a>
+
+									<input type="button"  class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.2}}" onclick="Copy('{{i.2}}');" title="click to copy" />
+                                    <input type="text" id="url_{{i.2}}"  value="{{i.0}}" style="opacity:0;" />
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+            </div>{% endfor %}
+        {% for i in images_new %}
+
+            <div class="col-xs-12 col-sm-6 col-md-4" style="margin-bottom:10px;">
+
+                    <div class="mainflip">
+
+                        <div class="frontside">
+
+                            <div class="card">
+
+                                <div class="card-body text-center">
+
+									<div>
+                                        <object width="100%" height="200px" data="{{i.0}}"></object>
+									</div>
+
+
+                                    <h4 class="card-title">{{i.1}}</h4>
+
+                                    <input type="button" class="btn btn-outline-info" id="saveButton_{{i.2}}"  onclick="getimageLinks('{{ i.0 }}','{{i.1}}','{{i.2}}');" value="Save"><span align="right" class="glyphicon glyphicon-downalod"></span></input>
+                                    <!--<input type="button" class="btn btn-success btn-sm glyphicon glyphicon-downalod"  id="dwn-btn_{{i.2}}" value="upload" onclick="images_upload('{{i.0}}','{{i.1}}','{{i.2}}')"/>-->
+									 <!--<input type="button" class="glyphicon glyphicon-downalod" class="btn btn-success btn-sm" id="dwn-btn_{{i.2}}" value="upload" onclick="images_download('{{i.0}}','{{i.1}}','{{i.2}}')"/>-->
+
+                                    <a href="{% url 'downloads_images' i.2 %}" class="btn btn-outline-success">download</a>
+
+								    <input type="button"  class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.2}}" onclick="Copy('{{i.2}}');" title="click to copy" />
+                                    <!--<span><a class="btn btn-info btn-sm fa fa-download" aria-hidden="true" title="download" id="dwn-btn1_{{i.2}}" onclick="terms_and_conditions('{{i.0}}','{{i.1}}','{{i.2}}')"></a></span>-->
+                                    <input type="text" id="url_{{i.2}}"  value="{{i.0}}" style="opacity:0;" />
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+               <!-- </div>-->
+            </div>{% endfor %}
+
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+    </form>
+
+<div class="d-block m-x-auto" style="transform: translate(40%,30%);">
+{% if images_new.has_other_pages %}
+ <ul class="pagination">
+    {% if images_new.has_previous %}
+      <li><a href="{{ key }}?page={{ images_new.previous_page_number }}">&laquo;</a></li> &nbsp;
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>&nbsp;
+    {% endif %}
+    {% for i in images_new.paginator.page_range %}
+      {% if videos_new.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>&nbsp;
+      {% else %}
+        <li><a href="{{ key }}?page={{ i }}">{{ i }}</a></li>&nbsp;
+      {% endif %}
+    {% endfor %}
+    {% if videos_new.has_next %}
+      <li><a href="{{ key }}?page={{ images_new.next_page_number }}">&raquo;</a></li>&nbsp;
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>&nbsp;
+    {% endif %}
+  </ul>
+{% endif %}
+</div>
+
+
+{% endif %}
+
+
+{% if news_new %}
+<form  method="get">
+
+<section id="team" class="pb-5">
+    <div class="container">
+	<div class="row">{% for i in news_old %}
+		 <div class="col-md-12" style="border:2px solid #ddd;border-radius:5px;padding:5px;">
+
+			<div class="list-group" >
+				<a href="">
+					<div class="media col-md-2" >
+					<!--style="border:2px solid #ddd;border-radius:5px;" -->
+						<center><figure >
+							<img class="media-object img-rounded img-responsive" src="{{ i.3 }}" alt="placehold.it/140x100" >
+						</figure></center>
+					</div>
+					<div class="col-md-10">
+						<a href="{{ i.0 }}"><h4 class="list-group-item-heading pb-3"> {{ i.1 }} </h4></a>
+						<p class="list-group-item-text"> {{ i.2 }} </p>
+					</div>
+                        <div class="col-md-12" style="padding:0px;">
+						    <input type="button" class="btn btn-outline-info" id="saveButton_{{i.2}}" onclick="getnewsLinks('{{ i.0 }}','{{i.1}}','{{i.2}}','{{i.3}}','{{i.4}}','{{i.5}}');" value="Save" />
+						    <!--<a href="#" class="btn btn-success btn-sm">Upload</a>-->
+						    <input type="button" class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.2}}" onclick="Copy('{{i.2}}');" title="click to copy" />
+                            <input type="text" id="url_{{i.2}}"  value="{{i.0}}" style="opacity:0;" />
+
+					    </div>
+					<!--<div class="col-md-1 text-center">
+						<p> 2 <small> approvals </small></p>
+						<button type="button" class="btn btn-primary btn-sm btn-block">Open</button>
+					</div>-->
+				</a>
+
+
+			</div>
+
+
+		</div> {% endfor %}
+
+		{% for i in news_new %}
+		 <div class="col-md-12" style="border:2px solid #ddd;border-radius:5px;padding:5px;margin-bottom: 10px;">
+
+			<!--<div class="list-group" >-->
+				<a href="">
+					<div class="col-md-2" style="float:left;padding-top: 20px;">
+					<!--style="border:2px solid #ddd;border-radius:5px;" -->
+						<figure >
+							<img class="media-object img-rounded img-responsive" src="{{ i.3 }}" alt="img" style="width:120px;">
+						</figure>
+					</div>
+					<div class="col-md-10" style="float:left;">
+						<a href="{{ i.0 }}"><h4 class="list-group-item-heading pb-3"> {{ i.1 }} </h4></a>
+						<p class="list-group-item-text"> {{ i.4 }} </p>
+						<!--<br />-->
+
+						<div class="col-md-12" style="padding:0px;">
+						    <input type="button" class="btn btn-outline-info" id="saveButton_{{i.2}}" onclick="getnewsLinks('{{ i.0 }}','{{i.1}}','{{i.2}}','{{i.3}}','{{i.4}}','{{i.5}}');" value="Save" />
+						    <!--<a href="#" class="btn btn-success btn-sm">Upload</a>-->
+						    <input type="button" class="btn btn-outline-warning" data-toggle="tooltip" value="Copy Url" id="copy_{{i.2}}" onclick="Copy('{{i.2}}');" title="click to copy" />
+                            <input type="text" id="url_{{i.2}}"  value="{{i.0}}" style="opacity:0;" />
+
+					    </div>
+
+
+
+					</div>
+
+
+
+
+
+
+
+					<!--<div class="col-md-1 text-center">
+						<p> 2 <small> approvals </small></p>
+						<button type="button" class="btn btn-primary btn-sm btn-block">Open</button>
+					</div>-->
+				</a>
+
+
+			<!--</div>-->
+
+
+		</div> {% endfor %}
+
+	</div>
+  </div>
+
+
+</section>
+
+    </form>
+
+
+
+
+
+
+
+{% endif %}
+
+
+
+<script >
+
+    function terms_and_conditions(link, keyword, id)
+    {
+         document.getElementById('keyword_keyword').value=keyword;
+        document.getElementById('id_id').value=id;
+
+        document.getElementById('link_link').value=link;
+
+        $('#popupModal').show();
+
+
+    }
+
+
+            function TermsAccept()
+			{
+
+			     var link = document.getElementById('link_link').value;
+                 var title = document.getElementById('keyword_keyword').value;
+                 var id = document.getElementById('id_id').value;
+
+
+				if(document.getElementById('AcceptCheckBox').checked==true)
+				{
+					//console.log("Success"+link+"=="+keyword+"=="+id);
+
+					images_download(link , title , id);
+
+						//images_download();
+
+				}else
+				{
+					alert("For Downloading Accept the Terms and Conditions..!");
+
+				}
+
+
+			}
+
+
+
+
+ function getvideoLinks(link , title , keyword,type,id) {
+     //console.log(title)
+
+     $.ajax(
+         {
+             type: 'GET',
+             url: "/signagecms/youtube_content/",
+             data: {
+                 link: link,
+                 title: title,
+                 keyword: keyword,
+                 type:type,
+                 video_id : id,
+             },
+             success: function (data) {
+                 console.log(data);
+
+                if(data=='ok')
+                {
+                    disableButton(id);
+                }
+                else
+                {
+                    console.log("error=="+data);
+                }
+
+             },
+         }) ;
+      }
+
+/*function disableButton(id)
+{
+    console.log(id);
+ document.getElementById('saveButton_'+id).value="Saved";
+ document.getElementById('saveButton_'+id).disabled = true;
+
+}*/
+
+function getimageLinks(link,keyword,id) {
+     console.log(link+"=="+keyword+"=="+id);
+
+     $.ajax(
+         {
+             type: 'GET',
+             url: '/signagecms/images_content/',
+             data: {
+                 link: link,
+                 title:keyword,
+                 keyword: keyword
+             },
+             success: function (data) {
+                 console.log(data);
+
+                if(data=='ok')
+                {
+                    disableButton(id);
+                }
+                else
+                {
+                    console.log("error=="+data);
+                }
+
+             }
+         }) ;
+      }
+
+/*function disableButton(id){
+
+ document.getElementById('saveButton_'+id).value="Saved";
+ document.getElementById('saveButton_'+id).disabled = true;
+
+}*/
+
+function getnewsLinks(link ,url_name,id,image,content,keyword) {
+     console.log(link+"==="+content+"==="+id+"==="+image+"==="+content+"==="+keyword);
+
+     $.ajax(
+         {
+             type: 'GET',
+             url: "/signagecms/news_content/",
+             data: {
+                 link: link,
+                 title:url_name,
+                 content:content,
+                 keyword: keyword,
+                 image : image,
+
+             },
+             success: function (data) {
+                 console.log(data);
+
+                if(data=='ok')
+                {
+                    disableButton(id);
+                }
+                else
+                {
+                    console.log("error=="+data);
+                }
+
+             },
+         }) ;
+
+      }
+
+function disableButton(id){
+
+ document.getElementById('saveButton_'+id).value="Saved";
+ document.getElementById('saveButton_'+id).disabled = true;
+
+}
+
+function Copy(id) {
+
+   var Url = document.getElementById("url_"+id);
+   Url.select();
+   document.execCommand('copy');
+
+    console.log("url=="+Url.value);
+     //document.getElementById("copy_"+id).value = "Copied";
+     swal("Copied");
+    var tooltip=document.getElementById("copy_"+id);
+
+   // tooltip.innerHTML="Copied";
+    tooltip.title="Copied!";
+
+}
+
+function videos_upload(link , title , id){
+
+
+            ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+            //{% static 'downloads/images/' %}
+
+		 	$.ajax(
+		    {
+		        type:'GET',
+		        url: '/signagecms/video_upload/',
+		        data: {
+		        	link:link,
+		        	title:title,
+		        	id:id,
+		        },
+		        success: function( data )
+		        {
+		            ajaxindicatorstop();
+                    document.getElementById('dwn-btn_'+id).value = "uploaded";
+		            alert("Uploaded Successfully")
+
+		        }
+		     });
+
+}
+
+function images_upload(link , keyword , id)
+  {
+
+        ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+      $.ajax(
+        {
+            type:'GET',
+            url: '/signagecms/images_upload/',
+            data: {
+              link:link,
+              keyword:keyword,
+              id:id,
+            },
+            success: function( data )
+            {
+               // console.log(data);
+                ajaxindicatorstop();
+               document.getElementById('dwn-btn_'+id).value = "uploaded";
+               alert("Uploaded Successfully");
+
+            }
+         });
+
+
+  }
+
+
+function images_download(link, title, id){
+
+         //document.getElementById("download_files_").href="{% static 'Apple.png' %}";
+
+
+          //document.getElementById('dwn-btn1_'+id).href="{% static 'c92663c5-c1b5-43c9-baf9-8faa44612421.mp4' %}";
+
+           ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+
+		 	$.ajax(
+		    {
+		        type:'GET',
+		        url: '/signagecms/downloads_images/',
+		        data: {
+		        	link:link,
+		        	title:title,
+		        	id:id,
+		        },
+		        success: function( data )
+		        {
+                    ajaxindicatorstop();
+                    //$('#popupModal').hide();
+		           //alert(JSON.stringify(data));
+
+		           // document.getElementById('dwn-btn1_'+id).href="{% static 'Apple.png' %}";
+
+		           /*if(data.status==true || data.status=="true")
+		           {
+		               //download_local(data.result,id);
+		               console.log("success"+data.result);
+		              // document.getElementById('download_files_').href="{% static 'Apple.png' %}";
+
+		              //{% static 'images/{{ image.title }}.png' %}
+
+		             // <a href="{% static "product-images/" %}{{ productinfo.link|safe }}">
+
+		               document.getElementById("download_files_").href="{% static 'downloads/images/' %}"+data.result;
+
+		           }*/
+
+
+
+		        }
+		     });
+
+}
+
+function download_local(result,id){
+
+    if(result!=null)
+    {
+
+        //document.getElementById('dwn-btn_'+id).href="https://www.pythonanywhere.com/user/adskite/files/home/adskite/myproject/signagecms/cmsapp/"+result;
+
+        document.getElementById('dwn-btn_'+id).href="home/adskite/myproject/signagecms/static/Apple.png";
+
+        console.log("true==" + "https://www.pythonanywhere.com/user/adskite/files/home/adskite/myproject/signagecms/cmsapp/"+result);
+    }
+
+}
+
+
+function videos_download(link , title , id)
+{
+
+     ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+
+		 	$.ajax(
+		    {
+		        type:'GET',
+		        url: '/signagecms/downloads_videos/',
+		        data: {
+		        	link:link,
+		        	title:title,
+		        	id:id,
+		        },
+		        success: function( data )
+		        {
+		            ajaxindicatorstop();
+                    document.write(data);
+		           //alert(data);
+
+		        }
+		     });
+
+}
+
+function TermsandConditionsPopup(id)
+{
+
+    console.log("id==="+id);
+
+}
+
+</script>
+
+{% else %}
+
+ <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Login_Modal">Open modal</button>-->
+
+    <div class="modal" id="Login_Modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <!--<div class="modal-header">-->
+        <!--  <center><h4 class="modal-title ">Login To CMS</h4></center>-->
+          <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <!--</div>-->
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+                <div class="loginmodal-container">
+					<h1>Login to CMS</h1><br>
+
+				  <form method="post"  action="{% url 'signin' %}">
+				       {% csrf_token %}
+
+				       <p>Please login with SignageServ username</p>
+				       {% if result %}
+					        <p style='color:red;font-weight:bold;'> {{ result }} </p>
+					    {% endif %}
+					<input type="text" name="user" placeholder="Username">
+					<!--<input type="password" name="pass" placeholder="Password">-->
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+
+				 <!-- <div class="login-help">-->
+					<!--<a href="#">Register</a> - <a href="#">Forgot Password</a>-->
+				 <!-- </div>-->
+				</div>
+
+
+        </div>
+
+        <!-- Modal footer -->
+        <!--<div class="modal-footer">-->
+          <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+        <!--</div>-->
+
+      </div>
+    </div>
+  </div>
+
+<div class="google">
+	    <a href="#" id="google_logo"><img id="img_logo" src="{% static 'images/GREEN.png'%}" alt="image" /></a>
+	</div>
+
+	    <div class="form">
+			  <form action="{% url 'all_content' %}" method="get">
+				<label for="form-search"></label>
+				<input type="text" name="keyword" class="form-control d-block mx-auto" id="form-search"  autofocus>
+
+				 <!-- BUTTONS -->
+    			<!--<div class="buttons" >
+    			  <input type="submit" name="youtube" class="btn btn-outline-info" value="Videos" id="videos_search" >
+    			  <input type="submit" name="images" class="btn btn-outline-info" value="Images" id="images_search">
+    			  <input type="submit" name="news" class="btn btn-outline-info" value="News" id="news_search">
+    			  <input type="submit" name="marketing" class="btn btn-outline-info" value="Marketing" id="marketing_search">
+    			 <!-- <input type="submit" value="I'm Feeling Lucky" id="im_feeling_lucky">-->
+    			<!--</div>-->
+
+			  </form>
+		</div>
+
+		<!-- FOOTER -->
+			<footer style="position: fixed;width:100%;">
+				<!--<ul class="footer-left">
+				  <li><a href="#">Advertising</a></li>
+				  <li><a href="#">Business</a></li>
+				  <li><a href="#">About</a></li>
+				</ul>-->
+
+				<ul class="footer-right">
+				  <li><a href="#">Privacy</a></li>
+				  <li><a href="#">Terms</a></li>
+				  <li><a href="#">Settings</a></li>
+				</ul>
+			</footer>
+
+			<script>
+
+			    //$('#Login_Modal').modal('show');
+
+			    $('#Login_Modal').modal({backdrop: 'static', keyboard: false});
+
+			</script>
+
+
+{% endif %}
+
+{% endblock %}
+
+<br/><br/><br/>
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
+
+</body>
+</html>

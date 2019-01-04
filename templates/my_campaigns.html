@@ -1,0 +1,360 @@
+
+{% load static %}
+<html lang="en">
+<head>
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+</head>
+{% block body %}
+<body>
+
+
+	<!-- For Bootstrap UI Button -->
+	<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="{% static 'multiple_emails/multiple-emails.css' %}" />
+     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-latest.min.js'></script>
+    	<script type="text/javascript" src="{% static 'multiple_emails/multiple-emails.js' %}"></script>
+		<script type="text/javascript">
+
+		//Plug-in function for the bootstrap version of the multiple email
+// 		$(function() {
+
+// 			$('#example_emailBS').multiple_emails({position: "bottom"});
+
+// 			$('#current_emailsBS').text($('#example_emailBS').val());
+// 			$('#example_emailBS').change( function(){
+// 				$('#current_emailsBS').text($(this).val());
+// 			});
+// 		});
+
+        // function list_gc(){
+        //  document.getElementById('addemail').style.display='none';
+        //   document.getElementById('listemail').style.display='block';
+        // }
+        // function add_gcname(){
+        //   document.getElementById('addemail').style.display='block';
+        //   document.getElementById('listemail').style.display='none';
+        // }
+
+
+// 		function submit()
+// 		{
+// 		    var gname = document.getElementById('group_name').value;
+//             var multi_emails = document.getElementById('current_emailsBS').innerHTML;
+//             if(gname=="" || gname=="null" || gname==" " || gname=="undefined"){
+//                 swal("please enter email group name");
+//                 return false;
+//             }
+//              if(multi_emails==""){
+//                 swal("please enter web group name");
+//                 return false;
+//             }
+
+//             console.log("name"+gname+"email"+multi_emails);
+
+
+// 				$.ajax(
+// 				  {
+// 					  type:'GET',
+// 					  url: '/Add_GC_groups/',
+// 					  data:{
+//                          group_name: gname,
+//                          group_emails_list: multi_emails,
+// 					  },
+// 					  success: function(data)
+// 					  {
+// 						console.log("data result==="+JSON.stringify(data));
+// 						try {
+// 							//var jsonResponse = JSON.parse(data);
+
+// 							  if(data['status']==true)
+// 							  {
+//                                 //   swal(data['success']);
+
+//                                       setTimeout(function() {
+//                                         swal({
+//                                             title: "",
+//                                             text: "New Email Group Name Created Successfully.!",
+//                                             type: "success"
+//                                         }, function() {
+//                                             window.location = "{% url 'My_GC_Groups' %}";
+//                                         });
+//                                     }, 2000);
+// 							  }
+// 							  else if(data['status']==false)
+// 							  {
+//                                     // swal(data['error']);
+//                                     swal("Error, Please contact us.");
+// 							  }
+
+// 						}
+// 						catch(Exception)
+// 						{
+// 							alert(Exception.message);
+// 						}
+
+// 					  }
+// 				   });
+
+// 		 }
+
+// 	</script>
+
+
+    <br/> <br/><br/>
+    <style>
+.h4,h4{
+    margin:0px;
+}
+
+.actives{
+    background:green;
+
+}
+a.btn:active{
+    background:green;
+}
+</style>
+<!--<div class="container">-->
+<!--    <div class="rows">-->
+
+<!--            <div class="col-md-12" id="my_styles" style="text-align: center;display:inline-block;">-->
+
+
+<!--     <a  class="btn border border-success actives" style="-->
+<!--    padding: 10px;-->
+<!--    border-radius: 10px;cursor:pointer;color:burlywood;-->
+<!--"  onclick="list_gc();">My GC Groups</a>-->
+
+<!--     <a  class="btn border border-success" style="-->
+<!--    padding: 10px;-->
+<!--    border-radius: 10px;margin-right:35px;cursor:pointer;color:burlywood;"  onclick="add_gcname();">Add GC Group</a>-->
+<!--     </div>-->
+<!--     </div>-->
+<!--     </div>-->
+    <br/>
+     <!--start add gmail-->
+	<!--<div class='container' style="display:none;border: solid 2px lightblue;-->
+ <!--   border-radius: 10px;" id="addemail">-->
+	<!--	<div class='rows'>-->
+	<!--		<h3 style="text-align:center;">Add Emails to GC Groups</h3>-->
+	<!--		<div class='form-group'>-->
+	<!--			<div class='col-md-12'>-->
+	<!--				<h5 for='example_emailBS'>Input GC Group Name :</h5>-->
+	<!--				<input type='text' id='group_name'  class='form-control' autofocus>-->
+	<!--			</div>-->
+	<!--				<pre id='current_emailsBS' style="display:none;"></pre>-->
+	<!--		</div>-->
+
+	<!--		<div class='form-group'>-->
+	<!--			<div class='col-md-12'>-->
+	<!--				<h5 for='example_emailBS'>Input Group Mail Id :</h5>-->
+	<!--				<input type='text' id='example_emailBS' name='example_emailBS' class='form-control' value=''>-->
+	<!--			</div>-->
+	<!--				<pre id='current_emailsBS' style="display:none;"></pre>-->
+	<!--		</div>-->
+	<!--		<div class='form-group'>-->
+	<!--		    <div class='col-md-12' style="text-align: center;margin: 10px;">-->
+	<!--		    <button class="btn btn-success" onclick="submit();">Submit</button>-->
+	<!--		    </div>-->
+	<!--		</div>-->
+
+	<!--	</div>-->
+	<!--</div>-->
+	<!--end add gmail-->
+
+	<!--start list groups-->
+	<div class='container' style="border: solid 2px lightblue;
+    border-radius: 10px;" id="listemail">
+		<div class='rows'>
+			<br/>
+
+            <div class='panel panel-default'>
+
+                    <div class='panel-heading' style='background: cornflowerblue;color: white;'>Download Campaign</div>
+                    <!--{{ result }}-->
+                    {% for i in res %}
+                    <ul class='list-group'>
+
+                        <li class='list-group-item'>
+                            <!--<div class='row toggle' id='lead_contact_details' data-toggle='contact_detail_{{i.id}}' onclick="leadcontactdetailsdropdown('{{i.id}}');" style='cursor:pointer'>-->
+                             <div class='row toggle' id='lead_contact_details' style='cursor:pointer'>
+                            <div class='col-xs-10'>{{ i.campaign_name }}</div>
+                            <!--<div class='col-xs-2'><i class='fa fa-chevron-down pull-right'></i></div>-->
+                              <div class='col-xs-2'><i class='fa fa-download pull-right' style='color:darkgreen;' onclick='download("{{i.id}}","{{i.text_file}}","{{i.media_files}}");'></i></div>
+
+                            </div>
+
+
+                                <!--<div id='contact_detail_{{i.id}}' style='display:none;'><hr></hr>-->
+                                <!--<i class='fa fa-download pull-right' style='color:darkgreen;' onclick='download("{{i.id}}","{{i.text_file}}","{{i.media_files}}");'></i>-->
+                                <!--<a  href="{{ i.text_file }}" download>{{ i.campaign_name }}</a>-->
+                                <!--{% for j in i.media_files %}-->
+                                <!--<a href="{{ j }}" download>region</a>-->
+                                <!--{% endfor %}-->
+                                <!--</div>-->
+                                </li>
+
+
+                    </ul>{% endfor %}
+
+            </div>
+		</div>
+	</div>
+
+
+	<!--end list groups-->
+   	<!-- For the plug-in dependencies -->
+  	<script>
+//   	    jQuery("#my_styles .btn").click(function(){
+//         jQuery("#my_styles .btn").removeClass('actives');
+//         jQuery(this).toggleClass('actives');
+// });
+  	</script>
+<script>
+//   function leadcontactdetailsdropdown(RecordId)
+//   {
+//         $('#contact_detail_'+RecordId).toggle('slow');
+//   }
+
+  function getContent(value)
+  {
+    console.log(value);
+  }
+
+
+    function displayLeads(leadsData)
+    {
+
+        var totalRecords = leadsData.length;
+
+	   // var rec = leadsData[0].values;
+
+
+	    console.log(JSON.stringify(leadsData));
+  }
+
+    // delete group name start
+    function delete_group_names(id){
+       console.log(id);
+    				var urls = 'https://www.greencontent.in/del_group/'+id;
+            swal({
+              title: "Are you sure?",
+              text: "You want to delete this group name..!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Yes, delete ",
+              cancelButtonText: "No, cancel ",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },function(isConfirm) {
+              if (isConfirm) {
+		    var form_data = new FormData();
+             ajaxindicatorstart("<img src='{% static "images/ajax-loader.gif" %}'><br/> Please wait...!");
+				$.ajax(
+				{
+					  type:'GET',
+					  url: urls,
+					  data:{
+					  },
+					  success: function(data)
+					  {
+						console.log("data==="+JSON.stringify(data));
+						 //disableButton(id);
+					try {
+
+							  if(data['status']==true)
+							  {
+                                        swal({
+                                        title: "Group Name!",
+                                                  text: "Deleted Successfully!",
+                                                  type: "success"
+                                        },
+                                        function(){
+                                          window.location.reload();
+                                      });
+                                     ajaxindicatorstop();
+							  }
+							  else if(data['status']==false)
+							  {
+
+                                    swal("Error, Please contact us.");
+                                     ajaxindicatorstop();
+
+							  }
+
+						}
+						catch(Exception)
+						{
+							alert(Exception.message);
+						}
+
+					  }
+				   });
+
+    } else {
+    swal("Cancelled", "Group name is safe", "error");
+      }
+    });
+    }
+    // end delete group name
+
+    //downlod campaign
+    function download(id,text_file,media_file){
+        console.log("id"+id);
+        console.log("media_file "+media_file);
+        console.log("text_file "+text_file);
+
+  var str =JSON.stringify(media_file);
+        var arr = str.replace(/(?!\s|:)((u)(?='))/g, "");
+        var str1 = arr.replace('"[','');
+        var str = str1.replace(']"','');
+        var lower = str.toLowerCase();
+    var upper = str.toUpperCase();
+
+    var res = "";
+    for(var i=0; i<lower.length; ++i) {
+        if(lower[i].trim() != "'")
+            res += str[i];
+    }
+    console.log(res);
+    var myarray = res.split(',');
+var result = [];
+for(var i = 0; i < myarray.length; i++)
+{
+   result.push(myarray[i]);
+}
+result.push(text_file);
+ console.log(result);
+for(var i = 0; i < result.length; i += 1) {
+    var a = document.createElement("a");
+  a.href = result[i];
+a.download = result[i].split('/').pop();
+a.click();
+}
+
+// let a = document.createElement('a');
+// a.href = text_file;
+// a.download = text_file.split('/').pop();
+// a.click();
+
+
+
+
+    }
+    //end download campaign
+
+</script>
+<br/> <br/>
+{% endblock %}
+<br/><br/><br/>
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
+</body>
+</html>
+
