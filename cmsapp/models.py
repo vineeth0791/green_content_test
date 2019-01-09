@@ -67,12 +67,12 @@ class News_links(models.Model):
 
 
 class Testing(models.Model):
-    test = models.ForeignKey(Searched_videos)
+    test = models.ForeignKey(Searched_videos,on_delete=models.CASCADE)
     ky = models.CharField(max_length=20,blank=True,null=True)
 
 
 class Upload(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     upload = models.FileField()
     #keys = models.CharField(max_length=200)
     desc= models.TextField()
@@ -89,7 +89,7 @@ class Keywords(models.Model):
 
 
 class My_GC_Groups(models.Model):
-    group_created_by = models.ForeignKey(User)
+    group_created_by = models.ForeignKey(User,on_delete=models.CASCADE)
     group_name = models.CharField(max_length=50)
     group_created_date = models.DateTimeField()
 
