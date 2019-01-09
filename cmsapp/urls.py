@@ -49,7 +49,6 @@ urlpatterns = [
         url(r'^api_images/$',views.api_images,name='api_images'),
 
 
-        url(r'^testing/', views.testing, name='testing'),
         url(r'^my_content/', views.my_content, name='my_content'),
 
         url(r'^mycontent_images/', views.mycontent_images_api, name='mycontent_images'),
@@ -69,10 +68,6 @@ urlpatterns = [
 
         url(r'^del_group/(\d+)/$', views.del_group, name='del_group'),
 
-        #url(r'^sample/', views.sample, name='sample'),
-        #url(r'^restapi/', views.rest, name='rest'),
-
-        #url(r'^sampletest/', views.sampletest, name='sampletest'),
         url(r'^campaign/', views.campaign_upload, name='campaign_upload'),
 
         url(r'^single_campaigns/', views.single_campaign_preview, name='single_campaign'),
@@ -89,7 +84,12 @@ urlpatterns = [
 
         url(r'^all_user_emails_api/', views.all_user_emails_api, name='all_user_emails'),
 
-        url(r'^folder_download/', views.folder_download, name='folder_download'),
+
+
+        url(r'^campaign_upload_api/$', views.campaign_upload_api, name='campaign_upload_api'),
+
+        url(r'^campaign_upload_files_api/$', views.campaign_upload_files_api, name='campaign_upload_files_api'),
+
 
 
 

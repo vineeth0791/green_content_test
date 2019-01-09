@@ -1,1 +1,0 @@
-{"type":"Video","media_name":"Campaign_20181130_174207","offer_text":"","display_scroll_txt":true,"resource":"DNDM-1543579928926.mp4","duration":10}

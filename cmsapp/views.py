@@ -433,21 +433,6 @@ def login_auth():
 
     return result
 
-'''def signin(request):
-    if request.method =='POST':
-
-        user=authenticate(request,username=request.POST['email'],password=request.POST['pass'])
-        if user is not None :
-            login(request,user)
-            messages.success(request,'you are logged in successfully')
-
-            return redirect('/mycontent/')
-
-        else:
-
-            return render(request,'signin.html',{'error':"Please enter correct credentials"})
-    else:
-        return render(request,'signin.html')'''
 
 import os
 from pytube import YouTube
@@ -526,9 +511,7 @@ def video_upload_download(link,filename):
 
 	yt = YouTube(link)
 
-	#stream = yt.get('mp4', '720p')
-    #random.randint(0,100000)
-    #a= datetime.datetime.now()
+
 
 	yt.streams.first().download("/home/adskite/myproject/signagecms/cmsapp",filename=str(filename))
 
@@ -558,14 +541,7 @@ def downloads_videos(request,num):
 
 
         filename = str(fname)+'.mp4'
-        #response = JsonResponse({'status':True, 'result':filename})
-        #return response
-        #THIS_FOLDER =os.path.dirname("/home/adskite/myproject/signagecms/static/downloads/videos/")
-        #my_file = os.path.join(THIS_FOLDER,filename)
-        #sa = my_file.split('/')[-1]
-        #dd = sa.split('.')[1]
 
-        #return HttpResponse(dd)
         with open("/home/adskite/myproject/signagecms/static/downloads/videos/{}".format(filename),'rb') as fh:
             response = HttpResponse(fh, content_type="application/vnd.android.package-archive")
             response["Content-disposition"] = "attachment; filename={}".format(filename)
@@ -1229,7 +1205,7 @@ def mycontent_videos_api(request):
         return render(request,'mycontent_videos.html',{'private_result': x})
     else:
        return render(request,'mycontent_videos.html',{'empty': "currently you don't have your own data ..."})
-@login_required
+
 def mycontent_audios_api(request):
     x = Upload.objects.filter(file_type = "audio",user=request.user)
     #y= Upload.objects.filter(file_type = "video",file_access_mode = "public")
@@ -1244,7 +1220,7 @@ def mycontent_audios_api(request):
 def my_content(request):
     return render(request,'my_content.html')
 
-@login_required
+
 def downloads_upload_files(request,pk):
     x = Upload.objects.filter(id = pk)
     filename = ''
@@ -1256,7 +1232,7 @@ def downloads_upload_files(request,pk):
             response['X-Sendfile'] = "/home/adskite/myproject/signagecms/media/{}".format(filename)
 
             return response
-@login_required
+
 def remove_upload_files(request,pk):
     x=Upload.objects.get(id = pk)
     x.delete()
@@ -1270,7 +1246,6 @@ def remove_upload_files(request,pk):
 
 
 @api_view(['GET'])
-@login_required
 def Add_GC_groups(request):
     if request.method == "GET":
 
@@ -1307,7 +1282,7 @@ def Add_GC_groups(request):
             x = JsonResponse({'status': False, 'error': " '%s' group is already exist,please try another"%(request.GET['group_name'])})
             return x
 
-@login_required
+
 def My_gc_groups(request):
     l=[]
     emails_list = []
@@ -1346,7 +1321,7 @@ def My_gc_groups(request):
 
     #return HttpResponse(l)
     return render(request,'my_gc_groups.html',{'result':l})
-@login_required
+
 def My_gc_groups_api(request):
     x= My_GC_Groups.objects.filter(group_created_by = request.user)
     res=[]
@@ -1372,7 +1347,7 @@ def My_gc_groups_api(request):
     r = JsonResponse({'status': True, 'result': res})
     return r
     #return HttpResponse(l)
-@login_required
+
 def del_group(request,pk):
     x = get_object_or_404(My_GC_Groups,id = pk)
     x.delete()
@@ -1452,45 +1427,11 @@ def mycontent_search(request):
             #return HttpResponse(y.upload)
             return render(request,'search_results.html',{"res_images_private":l_private,"res_images_public":l_public,"key":key})
 
-def sample(request):
-    x= Upload.objects.filter()
-    l=[]
-    for i in x:
-        l.append(i.upload)
-    return HttpResponse(l)
-
-    return render(request,'sample.html')
-
-@api_view(['GET','POST'])
-def rest(request):
-    l = []
-    d= {}
-    if request.method == "GET":
-        x = Rest.objects.all()
-        if x:
-            for i in x:
-                d["name"] = i.name
-                d["age"] = i.age
-                d["num"] = i.num
-
-                l.append(d.copy())
-                d.clear()
-        r = JsonResponse({'status': True, 'result': l})
-        return r
-    if request.method == "POST":
-        f = request.data
-        db = Rest()
-        db.name = f['name']
-        db.age = f['age']
-        db.num = f['num']
-        db.save()
-        r = JsonResponse({'status': True, 'result': "data submitted successfully"})
-        return r
 
 import json
 
 @api_view(['GET','POST'])
-@login_required
+
 def gc_login_api(request):
     if request.method == 'POST':
         result = json.loads(request.body)
@@ -1509,6 +1450,7 @@ def gc_login_api(request):
                     unique_key = User_unique_id.objects.get(user_id = i.id)
 
                     d["user_unique_key"] = unique_key.user_unique_key
+
                 r = JsonResponse({'status': True, 'res': d})
                 return r
 
@@ -1519,7 +1461,7 @@ def gc_login_api(request):
             r = JsonResponse({'status': False, 'res': "Please Enter Valid Email Address "})
             return r
 
-@login_required
+
 def my_campaigns(request):
     multiple_campaign = {}
     m_campaign = []
@@ -1560,7 +1502,7 @@ def my_campaigns(request):
 
 import pandas as pd
 @api_view(['GET'])
-@login_required
+
 def campaign_downloads_api(request,p):
 
     multiple_campaign = {}
@@ -1598,50 +1540,102 @@ def campaign_downloads_api(request,p):
 
             multiple_campaign.clear()
 
-    r = JsonResponse({'status': True,'campaigns':m_campaign})
-    return r
+        r = JsonResponse({'status': True,'campaigns':m_campaign})
+        return r
+    else:
+        r = JsonResponse({'status': False,'campaigns':"No campaigns found" })
+        return r
 
 @api_view(['GET','POST'])
-@login_required
+#@login_required
 def campaign_upload_api(request):
-    pass
+
     if request.method == "POST":
-        result = json.loads(request.body)
-        text_file = result['text_file']
-        camp_name = text_file.split('.')[0]
-        cam_check = Multiple_campaign_upload.objects.filter(campaign_uploaded_by=result["user_id"],campaign_name = camp_name)
-        if len(cam_check)== 0:
-            unique_key = User_unique_id.objects.get(user_id = result["user_id"])
+
+        text_file = request.data["text_file"]
+        d= text_file.name
+        camp_name = str(d).split('.')[0]
+
+        cam_check = Multiple_campaign_upload.objects.filter(campaign_uploaded_by=str(request.data["user_id"]),campaign_name = str(camp_name))
+        if len(cam_check) == 0:
+
+            #unique_key = User_unique_id.objects.get(user_id = result["user_id"])
                 #static_media_path = '/home/adskite/myproject/signagecms/media/campaigns/{}/'.format(camp_name)
-            folder='/home/adskite/myproject/signagecms/media/campaigns/{}/{}/'.format(unique_key.user_unique_key,camp_name)
+            folder='/home/adskite/myproject/signagecms/media/campaigns/{}/{}'.format(str(request.data["secretid"]),camp_name)
             fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT
-                #filename = fs.save(myfile.name, myfile)
             d = Multiple_campaign_upload()
-            d.campaign_uploaded_by = result["user_id"]
+            d.campaign_uploaded_by = str(request.data["user_id"])
             d.campaign_name = camp_name
             file_n = fs.save(text_file.name, text_file)
-            d.text_file = '/campaigns/{}/{}/{}'.format(unique_key.user_unique_key,camp_name,text_file.name)
+            d.text_file = '/campaigns/{}/{}/{}'.format(str(request.data["secretid"]),camp_name,text_file.name)
             d.created_date = datetime.datetime.now()
             d.updated_date = datetime.datetime.now()
             d.save()
 
-            for i in result["media_files"]:
+            '''for i in result["media_files"]:
 
                 f = Multiple_campaign_files()
                 f.Multiple_campaign = d.id
                 med_sile_n = fs.save(i.name, i)
                 f.mul_files = '/campaigns/{}/{}/{}'.format(unique_key.user_unique_key,camp_name,i.name)
-                f.save()
+                f.save()'''
 
-            x = JsonResponse({'status': False, 'result': "Campaign Uploaded succesfully" })
+            x = JsonResponse({'status': True, 'result': "Campaign Uploaded succesfully","path":folder,"camp_name":camp_name ,"camp_id":d.id})
             return x
-
         else:
-            x = JsonResponse({'status': False, 'result': "Campaign name already exist" })
-            return x
+            folder='/home/adskite/myproject/signagecms/media/campaigns/{}/{}'.format(str(request.data["secretid"]),camp_name)
+
+            for i in cam_check:
+
+                x = JsonResponse({'status': True, 'result': "Campaign already exist" ,"path":folder,"camp_id":i.id})
+                return x
+
+
     else:
         x = JsonResponse({'status': False, 'result': "Request should be in post method" })
         return x
+
+@api_view(['GET','POST'])
+#@login_required
+def campaign_upload_files_api(request):
+
+    if request.method == "POST":
+        media_file = request.data["media_file"]
+        file_path = '/campaigns/{}/{}/{}'.format(str(request.data["secretid"]),str(request.data["camp_name"]),str(media_file.name))
+        file_check  = Multiple_campaign_files.objects.filter(Multiple_campaign=str(request.data["camp_id"]),mul_files = file_path)
+
+        if len(file_check) == 0:
+            folder='/home/adskite/myproject/signagecms/media/campaigns/{}/{}'.format(str(request.data["secretid"]),str(request.data["camp_name"]))
+            if os.path.exists(folder):
+
+                fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT
+
+                f = Multiple_campaign_files()
+                f.Multiple_campaign = str(request.data["camp_id"])
+                med_file_n = fs.save(media_file.name, media_file)
+                f.mul_files = '/campaigns/{}/{}/{}'.format(str(request.data["secretid"]),str(request.data["camp_name"]),media_file.name)
+                f.save()
+
+                x = JsonResponse({'status': True, 'result': "File Uploaded succesfully" })
+                return x
+            else:
+                folder='/home/adskite/myproject/signagecms/media/campaigns/{}/{}'.format(str(request.data["secretid"]),str(request.data["camp_name"]))
+
+                x = JsonResponse({'status': True, 'result': " path does not exist" ,"path":folder})
+                return x
+
+        else:
+            x = JsonResponse({'status': True, 'result': " {} already exist ".format(media_file.name)})
+            return x
+
+
+    else:
+        x = JsonResponse({'status': False, 'result': "Request should be in post method" })
+        return x
+
+
+
+
 
 from django.core.mail import send_mail
 
@@ -1693,12 +1687,25 @@ def all_user_emails_api(request):
     x = JsonResponse({'status': True, 'result': emails })
     return x
 
-def folder_download(request):
-    with open("/home/adskite/myproject/signagecms/media/campaigns/8ae7ca5e81c8478a9954ba037816dd4a/campagin1",'rb') as fh:
-            response = HttpResponse(fh, content_type="application/vnd.android.package-archive")
-            response["Content-disposition"] = 'attachment; foldername="campagin1" '
-            x = response
-            return x
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
