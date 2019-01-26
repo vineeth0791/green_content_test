@@ -34,7 +34,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
     #data=Youtube_links.objects.filter(pk=request.user.id).order_by('-id')
     #return render(request,'base.html',{'post':data})
         x = Upload.objects.filter(file_type = "video",user=request.user).order_by('id')[:10]
