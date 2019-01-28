@@ -10,8 +10,14 @@ def upload_camp_web(request):
         campaigns = list(campaigns);
         return JsonResponse({'file':'fileObj.size'})
     else:
-        campaigns = Multiple_campaign_upload.objects.filter(campaign_uploaded_by=1);
-        campaigns = list(campaigns.values());
-        
-        return JsonResponse({'campaigns':campaigns});
-        #return render(request,'campaign/upload_file.html')
+        return render(request,'campaign/upload_file.html')
+
+'''
+ 1->Invalid request
+ '''
+def initCampaignUpload(request):
+	if(request.method == "POST"):
+		return JsonResponse({'status':"in progress"});
+	else :
+		return JsonResponse({'statusCode':1,
+			'status':"Invalid request"});
