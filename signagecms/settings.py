@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     'cmsapp',
     'accounts',
+    'campaign',
 ]
 
 MIDDLEWARE = [

@@ -126,6 +126,9 @@ class Multiple_campaign_upload(models.Model):
     text_file = models.FileField(upload_to="campaigns/",blank=True,null=True)
     created_date = models.DateTimeField()
     updated_date = models.DateTimeField()
+    is_skip = models.SmallIntegerField(default=0)
+    camp_type = models.SmallIntegerField(default=-1)
+    stor_location = models.SmallIntegerField(default=1)
 
 
 class Multiple_campaign_files(models.Model):
