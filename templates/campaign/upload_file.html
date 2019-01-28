@@ -317,11 +317,11 @@ function initUpload()
 {
   var xhr = new XMLHttpRequest();
 
-    xhr.upload.onprogress = function(evt) {
+    /*xhr.upload.onprogress = function(evt) {
         var percentComplete = parseInt(100.0 * evt.loaded / evt.total);
         // Upload in progress. Do something here with the percent complete.
         console.log("Percentcomplete - "+percentComplete);
-    };
+    };*/
 
   xhr.onload = function() {
       if (xhr.status === 200) {
@@ -337,11 +337,10 @@ function initUpload()
   };
 
   xhr.open('POST', 'http://127.0.0.1:8000/campaigns/init/');
-  
-  xhr.setRequestHeader('Content-Type', 'application/octet-stream');
- 
+   
 
   xhr.send();
+  return false;
 }
 </script>
 

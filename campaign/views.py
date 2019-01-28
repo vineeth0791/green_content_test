@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from cmsapp.models import Multiple_campaign_upload
+from rest_framework.decorators import api_view
 
 # Create your views here.
 def upload_camp_web(request):
@@ -15,6 +16,7 @@ def upload_camp_web(request):
 '''
  1->Invalid request
  '''
+@api_view(['GET','POST'])
 def initCampaignUpload(request):
 	if(request.method == "POST"):
 		return JsonResponse({'status':"in progress"});
