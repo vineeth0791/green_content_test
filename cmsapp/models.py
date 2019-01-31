@@ -153,8 +153,8 @@ class User_unique_id(models.Model):
     
     def getUniqueKey(userId):
        try:
-        uniqueKey = User_unique_id.objects.get(userId=userId);
-        return userId.user_unique_key
+        uniqueKey = User_unique_id.objects.get(user_id=userId);
+        return uniqueKey.user_unique_key
        except User_unique_id.DoesNotExist:
         return False
 #class Campaign_files(models.Model):

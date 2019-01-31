@@ -28,11 +28,10 @@ def initCampaignUpload(request):
         accessToken = request.POST.get('accessToken');
         if(accessToken == "web"):
             if request.user.is_authenticated:
-                campType = CampaignInfo.processInfoAndSaveCampaign(request.POST.get('info'),
+                response = CampaignInfo.processInfoAndSaveCampaign(request.POST.get('info'),
                     accessToken,request.user.id,
                     request.POST.get('campaign'),request.POST.get('size'));
-                return JsonResponse({'status':"in progress",'params':request.POST,'user':request.user.id,
-                    'campType':campType});
+                return JsonResponse(response);
             else:
                return JsonResponse({'statusCode':2,
                     'status':'Invalid session, please login'});

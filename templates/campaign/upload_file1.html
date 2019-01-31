@@ -873,7 +873,7 @@ function initUpload()
   
 
     var xhr = new XMLHttpRequest();
-    var params = 'accessToken=web&info='+info+'&campaign='+campaignName+'&size='+size;
+    var params = 'accessToken='+'web'+info+'&campaign='+campaignName+'&size='+size;
     
     xhr.onload = function() {
         if (xhr.status === 200) {
@@ -885,7 +885,7 @@ function initUpload()
             {
                uploadPath = responseObj.save_path;
                
-               uploadFile(uploadFiles[0]);
+              // uploadFile(uploadFiles[0]);
             }else
             {
               dismissBusyDialog();
@@ -901,7 +901,7 @@ function initUpload()
         }
     };
 
-    xhr.open('POST', '{{ API_HOST }}'+'/campaigns/init/');
+    xhr.open('POST', 'http://vineeth0791.pythonanywhere.com/campaigns/init/');
      
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
