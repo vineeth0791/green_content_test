@@ -41,7 +41,7 @@ class CampaignInfo(models.Model):
         if(isSave == True):
             savePath = '/home/adskite/myproject/signagecms/media/campaigns/{}/{}/'.format(secretKey,campaignName);
             return {'isSave':isSave,'statusCode':0,'status':
-            "success",'save_path':secretKey+"/"+campaignName+"/"}
+            "success",'save_path':savePath}
         else:
             return {'statusCode':3,'status':
             "Unable to upload campaign "+''.join(isSave)}
