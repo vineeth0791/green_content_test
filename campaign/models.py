@@ -39,7 +39,7 @@ class CampaignInfo(models.Model):
             info,campaignSize);
         
         if(isSave == True):
-            savePath = '/home/adskite/myproject/signagecms/media/campaigns/{}/{}/'.format(secretKey,campaignName);
+            savePath = '{}/{}/'.format(secretKey,campaignName);
             return {'isSave':isSave,'statusCode':0,'status':
             "success",'save_path':savePath}
         else:
