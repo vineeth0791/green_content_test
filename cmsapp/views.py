@@ -847,7 +847,8 @@ def upload(request):
         file = request.FILES['file']
         desc = request.POST['desc']
         keys = request.POST['keys']
-        y=keys.decode('utf-8').split(',')
+        #y=keys.decode('utf-8').split(',')
+        y=keys.split(',')
         type=  request.POST['Private']
         group = request.POST['email_gc_name']
         if len(group) == 1:
